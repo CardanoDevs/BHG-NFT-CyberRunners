@@ -50,6 +50,10 @@
             background-color: rgb(25, 25, 25) !important;
             border: 1px solid #FFFFFF;
             margin-right: 30px;
+            text-overflow: ellipsis;
+            white-space: break-spaces;
+            overflow: hidden;
+            width: 200px;
 
             &:hover {
                 cursor: pointer;

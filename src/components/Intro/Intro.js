@@ -53,8 +53,8 @@ const DateShow = () => {
                     </div>
                     
                     <div className="intro__date__show">
-                        <div className="intro__date__show__month">NOV</div>
-                        <div className="intro__date__show__date">18</div>
+                        <div className="intro__date__show__month">DEC</div>
+                        <div className="intro__date__show__date">4</div>
                         <div className="intro__date__show__year">21</div>
                     </div>
                 </div>

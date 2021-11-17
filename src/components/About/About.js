@@ -91,7 +91,7 @@ const About = () => {
                             The collection draws inspiration from pop culture classics such as Akira, Ghost in the Shell, Bladerunner and Mad Max.
                         </p>
                         <p className="about__content__desc__bottom">
-                            Each aspect was created with passion and strong attention to detail to ensure each CYBERUNNER was eccentric and true the universe we have created.
+                            Each aspect was created with passion and strong attention to detail to ensure each CYBERUNNER was eccentric and true to the universe we have created.
                         </p>
                     </div>
                     

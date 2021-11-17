@@ -14,10 +14,21 @@ import skeleton from '../../../assets/img/icons/skeleton_white.svg';
 
 import charac1 from '../../../assets/img/mint/charac1.png';
 import charac2 from '../../../assets/img/mint/charac2.png';
+import { useState, useEffect } from "react";
+import { getCurrentTotalSupply } from "../../../helpers/contract";
 
 export const Success = () => {
+    const [totalSupply, setTotalSupply] = useState(0);
+    useEffect(() => {
+        const load = async () => {
+          let supply = await getCurrentTotalSupply();
+          setTotalSupply(supply);
+        };
+        load();
+      }, []);
+
     return (
-        <div>
+        <div className="mint">
             <div className="mint__backHome">
                 <NavLink to={{ pathname: '/' }}>
                     <img alt="icon" src={ arrowLeft }></img>
@@ -31,7 +42,7 @@ export const Success = () => {
                         <img alt="title" src={title}></img>
                         <p>
                             YOU’VE SUCCESSFULLY MINTED YOUR CYBERUNNERS NFTs. You can now see your cyberunners on
-                            <a href="#javascript;"> opensea</a>
+                            <a href="https://testnets.opensea.io/collection/cyberrunners" > opensea</a>
                         </p>
                     </div>
 
@@ -61,7 +72,7 @@ export const Success = () => {
 
                         <div className="mint__success__pic__ballance__detail">
                             <div className="mint__success__pic__ballance__detail__number">
-                                5,000 / 9,000
+                                {totalSupply} / 8,888
                             </div>
 
                             <div className="mint__success__pic__ballance__detail__info">

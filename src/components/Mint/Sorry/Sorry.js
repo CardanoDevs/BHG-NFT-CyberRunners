@@ -47,7 +47,7 @@ export const Sorry = () => {
 
                         <div className="mint__sorry__pic__ballance__detail">
                             <div className="mint__sorry__pic__ballance__detail__number">
-                                105 / 9,000
+                                105 / 8,888
                             </div>
 
                             <div className="mint__sorry__pic__ballance__detail__info">

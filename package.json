@@ -21,7 +21,20 @@
     "react-slideshow-image": "^3.5.1",
     "sass": "^1.42.1",
     "web-vitals": "^1.0.1",
-    "zustand": "^3.6.4"
+    "zustand": "^3.6.4",
+    "firebase": "^8.9.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@metamask/detect-provider": "^1.2.0",
+    "@openzeppelin/contracts": "^4.3.2",
+    "@truffle/hdwallet-provider": "^1.5.0",
+    "@web3-react/core": "^6.1.9",
+    "@web3-react/injected-connector": "^6.0.7",
+    "axios": "^0.21.4",
+    "truffle-plugin-verify": "^0.5.15",
+    "web3": "^1.6.0",
+    "ethers": "^5.4.6"
   },
   "scripts": {
     "start": "react-scripts start",
