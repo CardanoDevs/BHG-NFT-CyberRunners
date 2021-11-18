@@ -13,8 +13,39 @@ import tag from '../../../assets/img/tags/5.svg';
 import pic from '../../../assets/img/mint/mint_avatar.png';
 
 import arrowLeft from '../../../assets/img/icons/arrow_left.svg';
+import { database } from "../../../firebase/firebase"
+import { useLocation, useHistory } from "react-router-dom";
+import { ethers, utils } from "ethers";
 
-export const Create = () => {
+export const Create = ({walletAddress}) => {
+
+    const history = useHistory();
+    const location = useLocation();
+
+    const registerWallet = async() => {
+        let ref = database.ref("waiting");
+        const item = {
+            address: utils.getAddress(walletAddress)
+        }
+        let newItem = ref.push();
+        newItem.set(item);
+    }
+
+    const registerWithDiscord = async () => {
+
+        await registerWallet();
+        history.push("/");
+        window.open(
+            "https://discord.gg/cyberunners", "_blank");
+    }
+
+    const registerWithTwitter = async () => {
+
+        await registerWallet();
+        window.open(
+            "https://twitter.com/cyberunners", "_blank");
+    }
+
     const options = [
         { value: '1', label: '1 - 0.06 ETH' },
         { value: '2', label: '2 - 0.12 ETH' },
@@ -48,10 +79,10 @@ export const Create = () => {
                     </div>
 
                     <div className="mint__create__main__buttons">
-                        <a className="discord" href="#javascript;">
+                        <button className="discord" onClick={() => {registerWithDiscord()}}>
                             <img alt="icon" src={ discordIcon }></img>
                             REGISTER WITH DISCORD
-                        </a>
+                        </button>
 
                         <div className="splitter">
                             <p className="splitter__line"></p>
@@ -59,10 +90,10 @@ export const Create = () => {
                             <p className="splitter__line"></p>
                         </div>
 
-                        <a className="twitter" href="#javascript;">
+                        <button className="twitter" onClick={() => {registerWithTwitter()}}>
                             <img alt="icon" src={ twitterIcon }></img>
                             REGISTER WITH TWITTER
-                        </a>
+                        </button>
                     </div>
                 </div>
 

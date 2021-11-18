@@ -1,5 +1,5 @@
 export const calculatePreTimeLeft = () => {
-  const presaleDate = new Date(Date.UTC(2021, 10, 17, 0, 0, 0))
+  const presaleDate = new Date(Date.UTC(2021, 10, 18, 0, 0, 0))
   const difference = presaleDate - new Date()
 
   let timeLeft = {}
@@ -29,7 +29,7 @@ export const calculatePreTimeLeft = () => {
 }
 
 export const calculatePublicTimeLeft = () => {
-  const publicsaleDate = new Date(Date.UTC(2021, 10, 18, 0, 0, 0))
+  const publicsaleDate = new Date(Date.UTC(2021, 10, 19, 0, 0, 0))
   const difference = publicsaleDate - new Date()
 
   let timeLeft = {}

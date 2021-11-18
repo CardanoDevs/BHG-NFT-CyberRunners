@@ -33,7 +33,7 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push(utils.getAddress(value.address));
+                walletList.push((value.address));
               });
             }
             setWhite(walletList);
@@ -52,7 +52,7 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push(utils.getAddress(value.address));
+                walletList.push((value.address));
               });
             }
             setWaiting(walletList);
@@ -71,7 +71,7 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push(utils.getAddress(value.address));
+                walletList.push((value.address));
               });
             }
             setRaffle(walletList);
@@ -122,7 +122,7 @@ export const Mint = ({ walletAddress }) => {
                 -1 ? (
                 <Confirmation />
               ) : (
-                <Create />
+                <Create walletAddress ={walletAddress}/>
               )}
             </div>
           )}
