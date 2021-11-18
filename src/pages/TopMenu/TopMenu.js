@@ -27,6 +27,7 @@ const TopLogo = () => {
 const TopButtons = ({ walletAddress }) => {
   const history = useHistory();
   const connectWallet = () => {
+    if (!! walletAddress) {
     let timeLeft = calculatePreTimeLeft();
     if (Object.keys(timeLeft).length === 0) {
       history.push("/mint");
@@ -34,6 +35,12 @@ const TopButtons = ({ walletAddress }) => {
       NotificationManager.info(
         "Presale is not Open! Please retry on launch date."
       );
+    } else {
+
+      NotificationManager.info(
+        "🦊 You must install Metamask in your browser or mobile !"
+      );
+    }
   };
 
   return (
