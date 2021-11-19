@@ -15,10 +15,11 @@ import { calculatePublicTimeLeft } from "../../helpers/timer";
 import store from "../../store/store";
 import { ethers, utils } from "ethers";
 
-export const Mint = ({ walletAddress }) => {
-  const [arrWhite, setWhite] = useState([]);
+export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
+  const [arrWhite, setArrWhite] = useState([]);
   const [arrWaiting, setWaiting] = useState([]);
   const [arrRaffle, setRaffle] = useState([]);
+  const [loading, setLoading] = useState(true);
   const timeLeft = calculatePublicTimeLeft();
 
   useEffect(() => {
@@ -33,10 +34,12 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push((value.address));
+                walletList.push(value.address);
               });
             }
-            setWhite(walletList);
+
+            setArrWhite(walletList);
+            hideLoading();
           }
         });
     };
@@ -52,7 +55,7 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push((value.address));
+                walletList.push(value.address);
               });
             }
             setWaiting(walletList);
@@ -71,14 +74,14 @@ export const Mint = ({ walletAddress }) => {
             if (newArray) {
               Object.keys(newArray).map((key, index) => {
                 const value = newArray[key];
-                walletList.push((value.address));
+                walletList.push(value.address);
               });
             }
             setRaffle(walletList);
           }
         });
     };
-
+    displayLoading();
     loadWhiteList();
     loadWaitingList();
     loadRaffle();
@@ -106,7 +109,7 @@ export const Mint = ({ walletAddress }) => {
           <div className="mint">
             {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) > -1 ||
             arrWaiting.indexOf(ethers.utils.getAddress(walletAddress)) > -1 ? (
-              <MintNow walletAddress={walletAddress}/>
+              <MintNow walletAddress={walletAddress} />
             ) : (
               <Sorry />
             )}
@@ -122,7 +125,7 @@ export const Mint = ({ walletAddress }) => {
                 -1 ? (
                 <Confirmation />
               ) : (
-                <Create walletAddress ={walletAddress}/>
+                <Create walletAddress={walletAddress} />
               )}
             </div>
           )}
