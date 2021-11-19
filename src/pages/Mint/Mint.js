@@ -22,6 +22,11 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
   const [loading, setLoading] = useState(true);
   const timeLeft = calculatePublicTimeLeft();
 
+  const finishLoading = () => {
+    hideLoading();
+    setLoading(false);
+  };
+
   useEffect(() => {
     const loadWhiteList = async () => {
       database
@@ -39,7 +44,9 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
             }
 
             setArrWhite(walletList);
-            hideLoading();
+            setTimeout(() => {
+              finishLoading();
+            }, 300);
           }
         });
     };
@@ -81,6 +88,7 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
           }
         });
     };
+    setLoading(true);
     displayLoading();
     loadWhiteList();
     loadWaitingList();
@@ -103,33 +111,42 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
 
   return (
     <div className="container">
-      {Object.keys(timeLeft).length === 0 ? (
-        arrWhite.length > 0 &&
-        arrRaffle.length > 0 && (
-          <div className="mint">
-            {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) > -1 ||
-            arrWaiting.indexOf(ethers.utils.getAddress(walletAddress)) > -1 ? (
-              <MintNow walletAddress={walletAddress} />
-            ) : (
-              <Sorry />
-            )}
-          </div>
-        )
-      ) : (
-        <div>
-          {arrWhite.length > 0 && (
-            <div className="mint">
-              {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) > -1 ? (
-                <MintNow walletAddress={walletAddress} />
-              ) : arrWaiting.indexOf(ethers.utils.getAddress(walletAddress)) >
-                -1 ? (
-                <Confirmation />
-              ) : (
-                <Create walletAddress={walletAddress} />
+      {!loading && (
+        <>
+          {" "}
+          {Object.keys(timeLeft).length === 0 ? (
+            arrWhite.length > 0 &&
+            arrRaffle.length > 0 && (
+              <div className="mint">
+                {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) >
+                  -1 ||
+                arrWaiting.indexOf(ethers.utils.getAddress(walletAddress)) >
+                  -1 ? (
+                  <MintNow walletAddress={walletAddress} />
+                ) : (
+                  <Sorry />
+                )}
+              </div>
+            )
+          ) : (
+            <div>
+              {arrWhite.length > 0 && (
+                <div className="mint">
+                  {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) >
+                  -1 ? (
+                    <MintNow walletAddress={walletAddress} />
+                  ) : arrWaiting.indexOf(
+                      ethers.utils.getAddress(walletAddress)
+                    ) > -1 ? (
+                    <Confirmation />
+                  ) : (
+                    <Create walletAddress={walletAddress} />
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </div>
+          )}{" "}
+        </>
       )}
     </div>
   );
