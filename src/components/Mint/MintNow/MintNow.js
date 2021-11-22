@@ -12,20 +12,23 @@ import tag from "../../../assets/img/tags/5.svg";
 import pic from "../../../assets/img/mint/mint_avatar.png";
 
 import skeleton from "../../../assets/img/icons/skeleton_white.svg";
+import { ethers, utils } from "ethers";
 
 import { useState, useEffect } from "react";
 import { mintNFT } from "../../../helpers/interact";
 import { getCurrentTotalSupply } from "../../../helpers/contract";
+import { calculatePublicTimeLeft } from "../../../helpers/timer";
 import { NotificationManager } from "react-notifications";
 import { calculateTimeLeft } from "../../../helpers/timer";
 import { useLocation, useHistory } from "react-router-dom";
-export const MintNow = ({ walletAddress }) => {
+export const MintNow = ({ walletAddress, arrWhite }) => {
   const [mintLoading, setMintLoading] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
   const [waitTime, setTime] = useState(3600);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const history = useHistory();
+  const timeLeft = calculatePublicTimeLeft();
 
   useEffect(() => {
     const load = async () => {
@@ -40,7 +43,7 @@ export const MintNow = ({ walletAddress }) => {
 
     if (isActive && isPaused === false) {
       interval = setInterval(() => {
-        setTime((waitTime) => waitTime -1);
+        setTime((waitTime) => waitTime - 1);
       }, 1000);
     } else {
       clearInterval(interval);
@@ -50,22 +53,19 @@ export const MintNow = ({ walletAddress }) => {
     };
   }, [isActive, isPaused]);
 
-
   const handleStart = () => {
     setIsActive(true);
     setIsPaused(false);
   };
-  
+
   const handlePauseResume = () => {
     setIsPaused(!isPaused);
   };
-  
+
   const handleReset = () => {
     setIsActive(false);
     setTime(3600);
   };
-
-
 
   const [number, setNumber] = useState(1);
   const options = [
@@ -75,8 +75,7 @@ export const MintNow = ({ walletAddress }) => {
     { value: "4", label: "4 - 0.24 ETH" },
   ];
 
-  const onMintHandler = async (amount) => {
-    console.log(amount);
+  const onMint = async (amount) => {
     if (!!walletAddress) {
       setMintLoading(true);
       handleStart();
@@ -112,6 +111,22 @@ export const MintNow = ({ walletAddress }) => {
         );
       } else {
         NotificationManager.info("Transaction is failed!");
+      }
+    }
+  };
+  const onMintHandler = async (amount) => {
+    console.log(amount);
+    if (Object.keys(timeLeft).length === 0) {
+      // public sale
+      onMint(amount);
+    } else {
+      //presale
+      if (arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) > -1) {
+        onMint(amount);
+      } else {
+        NotificationManager.info(
+          "This address is not allowed to mint during the presale!"
+        );
       }
     }
   };
@@ -168,7 +183,7 @@ export const MintNow = ({ walletAddress }) => {
               <div className="mint__mintNow__main__timer__value">
                 <p className="mint__mintNow__main__timer__value__number">
                   {" "}
-                  {calculateTimeLeft(waitTime).hours }{" "}
+                  {calculateTimeLeft(waitTime).hours}{" "}
                 </p>
               </div>
 
@@ -179,7 +194,7 @@ export const MintNow = ({ walletAddress }) => {
               <div className="mint__mintNow__main__timer__value">
                 <p className="mint__mintNow__main__timer__value__number">
                   {" "}
-                  {calculateTimeLeft(waitTime).minutes }{" "}
+                  {calculateTimeLeft(waitTime).minutes}{" "}
                 </p>
               </div>
 
@@ -190,7 +205,7 @@ export const MintNow = ({ walletAddress }) => {
               <div className="mint__mintNow__main__timer__value">
                 <p className="mint__mintNow__main__timer__value__number">
                   {" "}
-                  {calculateTimeLeft(waitTime).seconds }{" "}
+                  {calculateTimeLeft(waitTime).seconds}{" "}
                 </p>
               </div>
             </div>
@@ -232,7 +247,10 @@ export const MintNow = ({ walletAddress }) => {
             <div className="mint__mintNow__timer__wrapper">
               <div className="mint__mintNow__timer__value">
                 <p className="mint__mintNow__timer__value__desc"> HOURS </p>
-                <p className="mint__mintNow__timer__value__number"> {calculateTimeLeft(waitTime).hours } </p>
+                <p className="mint__mintNow__timer__value__number">
+                  {" "}
+                  {calculateTimeLeft(waitTime).hours}{" "}
+                </p>
               </div>
 
               <div className="mint__mintNow__timer__split">
@@ -241,7 +259,10 @@ export const MintNow = ({ walletAddress }) => {
 
               <div className="mint__mintNow__timer__value">
                 <p className="mint__mintNow__timer__value__desc"> MINUTES </p>
-                <p className="mint__mintNow__timer__value__number"> {calculateTimeLeft(waitTime).minutes } </p>
+                <p className="mint__mintNow__timer__value__number">
+                  {" "}
+                  {calculateTimeLeft(waitTime).minutes}{" "}
+                </p>
               </div>
 
               <div className="mint__mintNow__timer__split">
@@ -250,7 +271,10 @@ export const MintNow = ({ walletAddress }) => {
 
               <div className="mint__mintNow__timer__value">
                 <p className="mint__mintNow__timer__value__desc"> SECONDS </p>
-                <p className="mint__mintNow__timer__value__number"> {calculateTimeLeft(waitTime).seconds } </p>
+                <p className="mint__mintNow__timer__value__number">
+                  {" "}
+                  {calculateTimeLeft(waitTime).seconds}{" "}
+                </p>
               </div>
             </div>
           </div>

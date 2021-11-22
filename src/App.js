@@ -101,7 +101,7 @@ function App() {
         }}
       >
         <div className="App">
-          <TopMenu walletAddress={walletAddress} />
+          <TopMenu walletAddress={walletAddress} onConnectWalletHandler={onConnectWalletHandler} />
 
           <Switch>
             <Route exact path="/" component={Home} />

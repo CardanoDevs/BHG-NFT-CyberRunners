@@ -9,7 +9,7 @@ import topIcon3 from "../../assets/img/icons/topIcon3.svg";
 
 import menuIcon from "../../assets/img/icons/menu.svg";
 
-import {calculatePreTimeLeft} from "../../helpers/timer";
+import { calculatePreTimeLeft } from "../../helpers/timer";
 import logoText from "../../assets/img/font_svg/cyberunners-text-logo.svg";
 import { useLocation, useHistory } from "react-router-dom";
 
@@ -24,22 +24,19 @@ const TopLogo = () => {
   );
 };
 
-const TopButtons = ({ walletAddress }) => {
+const TopButtons = ({ walletAddress, onConnectWalletHandler }) => {
   const history = useHistory();
   const connectWallet = () => {
-    if (!! walletAddress) {
-    let timeLeft = calculatePreTimeLeft();
-    if (Object.keys(timeLeft).length === 0) {
-      history.push("/mint");
-    } else
-      NotificationManager.info(
-        "Presale is not Open! Please retry on launch date."
-      );
+    if (!!walletAddress) {
+      let timeLeft = calculatePreTimeLeft();
+      if (Object.keys(timeLeft).length === 0) {
+        history.push("/mint");
+      } else
+        NotificationManager.info(
+          "Presale is not Open! Please retry on launch date."
+        );
     } else {
-
-      NotificationManager.info(
-        "🦊 You must install Metamask in your browser or mobile !"
-      );
+      onConnectWalletHandler();
     }
   };
 
@@ -79,11 +76,14 @@ const TopButtons = ({ walletAddress }) => {
   );
 };
 
-export const TopMenu = ({ walletAddress }) => {
+export const TopMenu = ({ walletAddress, onConnectWalletHandler }) => {
   return (
     <div className="topMenu container">
       <TopLogo />
-      <TopButtons walletAddress={walletAddress} />
+      <TopButtons
+        walletAddress={walletAddress}
+        onConnectWalletHandler={onConnectWalletHandler}
+      />
     </div>
   );
 };

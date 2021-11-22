@@ -10,17 +10,13 @@ import "./Mint.scss";
 
 import { database } from "../../firebase/firebase";
 import { useState, useEffect } from "react";
-import { calculatePublicTimeLeft } from "../../helpers/timer";
 
 import store from "../../store/store";
 import { ethers, utils } from "ethers";
 
 export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
   const [arrWhite, setArrWhite] = useState([]);
-  const [arrWaiting, setWaiting] = useState([]);
-  const [arrRaffle, setRaffle] = useState([]);
   const [loading, setLoading] = useState(true);
-  const timeLeft = calculatePublicTimeLeft();
 
   const finishLoading = () => {
     hideLoading();
@@ -51,48 +47,9 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
         });
     };
 
-    const loadWaitingList = async () => {
-      database
-        .ref("waiting/")
-        .get()
-        .then((snapshot) => {
-          if (snapshot.exists) {
-            let walletList = [];
-            const newArray = snapshot.val();
-            if (newArray) {
-              Object.keys(newArray).map((key, index) => {
-                const value = newArray[key];
-                walletList.push(value.address);
-              });
-            }
-            setWaiting(walletList);
-          }
-        });
-    };
-
-    const loadRaffle = async () => {
-      database
-        .ref("raffle/")
-        .get()
-        .then((snapshot) => {
-          if (snapshot.exists) {
-            let walletList = [];
-            const newArray = snapshot.val();
-            if (newArray) {
-              Object.keys(newArray).map((key, index) => {
-                const value = newArray[key];
-                walletList.push(value.address);
-              });
-            }
-            setRaffle(walletList);
-          }
-        });
-    };
     setLoading(true);
     displayLoading();
     loadWhiteList();
-    loadWaitingList();
-    loadRaffle();
   }, []);
 
   // status => component
@@ -109,44 +66,14 @@ export const Mint = ({ walletAddress, hideLoading, displayLoading }) => {
         <Route exact path='/mint/success' component={Success} />
     </Switch> */
 
+  // Object.keys(timeLeft).length === 0
+
   return (
     <div className="container">
-      {!loading && (
-        <>
-          {" "}
-          {Object.keys(timeLeft).length === 0 ? (
-            arrWhite.length > 0 &&
-            arrRaffle.length > 0 && (
-              <div className="mint">
-                {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) >
-                  -1 ||
-                arrWaiting.indexOf(ethers.utils.getAddress(walletAddress)) >
-                  -1 ? (
-                  <MintNow walletAddress={walletAddress} />
-                ) : (
-                  <Sorry />
-                )}
-              </div>
-            )
-          ) : (
-            <div>
-              {arrWhite.length > 0 && (
-                <div className="mint">
-                  {arrWhite.indexOf(ethers.utils.getAddress(walletAddress)) >
-                  -1 ? (
-                    <MintNow walletAddress={walletAddress} />
-                  ) : arrWaiting.indexOf(
-                      ethers.utils.getAddress(walletAddress)
-                    ) > -1 ? (
-                    <Confirmation />
-                  ) : (
-                    <Create walletAddress={walletAddress} />
-                  )}
-                </div>
-              )}
-            </div>
-          )}{" "}
-        </>
+      {!loading && arrWhite.length > 0 && (
+        <div className="mint">
+          <MintNow walletAddress={walletAddress} arrWhite={arrWhite} />
+        </div>
       )}
     </div>
   );
