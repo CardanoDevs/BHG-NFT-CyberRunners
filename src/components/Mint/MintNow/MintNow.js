@@ -10,6 +10,10 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import title from "../../../assets/img/font_svg/mint_title_congratulations.svg";
 import tag from "../../../assets/img/tags/5.svg";
 import pic from "../../../assets/img/mint/mint_avatar.png";
+import pic1 from "../../../assets/img/mint/mint1.gif";
+import pic2 from "../../../assets/img/mint/mint2.gif";
+import pic3 from "../../../assets/img/mint/mint3.gif";
+import pic4 from "../../../assets/img/mint/mint4.gif";
 
 import skeleton from "../../../assets/img/icons/skeleton_white.svg";
 import { ethers, utils } from "ethers";
@@ -24,11 +28,13 @@ import { useLocation, useHistory } from "react-router-dom";
 export const MintNow = ({ walletAddress, arrWhite }) => {
   const [mintLoading, setMintLoading] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
-  const [waitTime, setTime] = useState(3600);
+  const [waitTime, setTime] = useState(172800);
   const [isActive, setIsActive] = useState(false);
   const [isPaused, setIsPaused] = useState(true);
   const history = useHistory();
   const timeLeft = calculatePublicTimeLeft();
+  const rand =   Math.floor((Math.random() * 4));
+  const avatars = [pic1, pic2, pic3, pic4];
 
   useEffect(() => {
     const load = async () => {
@@ -215,7 +221,7 @@ export const MintNow = ({ walletAddress, arrWhite }) => {
         <div className="mint__mintNow__pic">
           <div className="mint__mintNow__pic__wrapper">
             <img className="mint__mintNow__pic__tag" alt="pic" src={tag} />
-            <img className="mint__mintNow__pic__main" alt="pic" src={pic} />
+            <img className="mint__mintNow__pic__main" alt="pic" src={avatars[rand]} />
           </div>
 
           <div className="mint__mintNow__pic__ballance">

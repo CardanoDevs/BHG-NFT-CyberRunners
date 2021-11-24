@@ -62,14 +62,10 @@ export const calculateTimeLeft = (difference) => {
   let timeLeft = {}
   if (difference > 0) {
     timeLeft = {
-      days:
-        Math.floor(difference / ( 60 * 60 * 24)) < 10
-          ? `0${Math.floor(difference / ( 60 * 60 * 24))}`
-          : `${Math.floor(difference / ( 60 * 60 * 24))}`,
       hours:
-        Math.floor((difference / ( 60 * 60)) % 24) < 10
-          ? `0${Math.floor((difference / ( 60 * 60)) % 24)}`
-          : `${Math.floor((difference / ( 60 * 60)) % 24)}`,
+        Math.floor((difference / ( 60 * 60)) % 60) < 10
+          ? `0${Math.floor((difference / ( 60 * 60)) % 60)}`
+          : `${Math.floor((difference / ( 60 * 60)) % 60)}`,
       minutes:
         Math.floor((difference  / 60) % 60) < 10
           ? `0${Math.floor((difference  / 60) % 60)}`
