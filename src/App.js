@@ -55,8 +55,8 @@ function App() {
       const walletResponse = await connectWallet();
       setWalletAddress(walletResponse.address);
     } else {
-      NotificationManager.success(
-        "🦊 You must install Metamask in your browser"
+      NotificationManager.info(
+        "🦊 You need to have Metamask installed, or open in the Metamask mobile browser. (https://metamask.io/download.html)"
       );
     }
   };

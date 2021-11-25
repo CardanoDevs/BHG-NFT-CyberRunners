@@ -9,6 +9,11 @@ import arrowLeft from '../../../assets/img/icons/arrow_left.svg';
 import title from '../../../assets/img/font_svg/mint_title_congratulations.svg';
 import tag from '../../../assets/img/tags/5.svg';
 import pic from '../../../assets/img/mint/mint_avatar.png';
+import pic1 from "../../../assets/img/mint/mint1.gif";
+import pic2 from "../../../assets/img/mint/mint2.gif";
+import pic3 from "../../../assets/img/mint/mint3.gif";
+import pic4 from "../../../assets/img/mint/mint4.gif";
+
 
 import skeleton from '../../../assets/img/icons/skeleton_white.svg';
 
@@ -19,6 +24,9 @@ import { getCurrentTotalSupply } from "../../../helpers/contract";
 
 export const Success = () => {
     const [totalSupply, setTotalSupply] = useState(0);
+    const rand =   Math.floor((Math.random() * 4));
+    const avatars = [pic1, pic2, pic3, pic4];
+
     useEffect(() => {
         const load = async () => {
           let supply = await getCurrentTotalSupply();
@@ -62,7 +70,7 @@ export const Success = () => {
                 <div className="mint__success__pic">
                     <div className="mint__success__pic__wrapper">
                         <img className="mint__success__pic__tag" alt="pic" src={tag}></img>
-                        <img className="mint__success__pic__main" alt="pic" src={pic}></img>
+                        <img className="mint__success__pic__main" alt="pic" src={avatars[rand]}></img>
                     </div>
 
                     <div className="mint__success__pic__ballance">

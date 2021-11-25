@@ -92,12 +92,12 @@ export const MintNow = ({ walletAddress, arrWhite }) => {
       );
       if (success) {
         NotificationManager.success(
-          "Congratulations. CyberRunners are  successfully minted!"
+          "Congratulations! You have successfully minted your CYBERUNNERS"
         );
         history.push("/success");
       } else if (status.indexOf("insufficient fund") >= 0) {
         NotificationManager.info(
-          "You don't have enough eths to mint CyberRunners!"
+          "Sorry, you have insufficient ETH funds to complete this transaction"
         );
       } else if (status.indexOf("presale is not open") >= 0) {
         NotificationManager.info("Presale is not open!");
@@ -183,7 +183,7 @@ export const MintNow = ({ walletAddress, arrWhite }) => {
 
           <div className="mint__mintNow__main__timer">
             <div className="mint__mintNow__main__timer__desc">
-              Estimated Wait Time
+              Remaining Mint Time
             </div>
             <div className="mint__mintNow__main__timer__wrapper">
               <div className="mint__mintNow__main__timer__value">
@@ -248,7 +248,7 @@ export const MintNow = ({ walletAddress, arrWhite }) => {
             </div>
 
             <div className="mint__mintNow__timer__desc">
-              Estimated Wait Time
+            Remaining Mint Time
             </div>
             <div className="mint__mintNow__timer__wrapper">
               <div className="mint__mintNow__timer__value">
